@@ -1,0 +1,74 @@
+-- Pull in the wezterm API
+local wezterm = require 'wezterm'
+local act = wezterm.action
+
+-- This will hold the configuration.
+local config = wezterm.config_builder()
+
+-- This is where you actually apply your config choices
+
+-- For example, changing the color scheme:
+config.color_scheme = 'Afterglow'
+
+config.font = wezterm.font 'JetBrains Mono'
+
+-- Background
+local dimmer = { brightness = 0.1 }
+-- config.background = {
+--     {
+--         source={
+--             File="/Users/knwng/.wezterm/backgrounds/Turner-17.jpg"
+--         },
+--         hsb = dimmer,
+--     }
+-- }
+
+config.term = "xterm-256color"
+config.front_end = "WebGpu"
+config.webgpu_power_preference = "HighPerformance"
+
+-- local materia = wezterm.color.get_builtin_schemes()['Material Darker (base16)']
+-- config.colors = materia
+
+-- scroll bar
+config.enable_scroll_bar = true
+config.min_scroll_bar_height = "3cell"
+config.colors = {
+    scrollbar_thumb = "#CCCCCC",
+}
+
+
+-- tab bar
+config.enable_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = false
+config.use_fancy_tab_bar = true
+config.tab_max_width = 25
+config.show_tab_index_in_tab_bar = true
+config.switch_to_last_active_tab_when_closing_tab = true
+
+-- cursor
+config.default_cursor_style = "BlinkingBlock"
+config.cursor_blink_ease_in = "Constant"
+config.cursor_blink_ease_out = "Constant"
+config.cursor_blink_rate = 700
+
+-- window
+config.window_close_confirmation = "NeverPrompt"
+config.window_padding = { left = 0, right = 15, top = 0, bottom = 0 }
+
+-- bindings
+config.keys = {
+  {
+    key = 'w',
+    mods = 'CMD',
+    action = wezterm.action.CloseCurrentTab { confirm = false },
+  },
+  { key = '[', mods = 'CMD', action = act.ActivateTabRelative(-1) },
+  { key = ']', mods = 'CMD', action = act.ActivateTabRelative(1) },
+  { key = '+', mods = 'SHIFT|CTRL', action = act.IncreaseFontSize },
+  { key = '_', mods = 'SHIFT|CTRL', action = act.DecreaseFontSize },
+}
+
+-- and finally, return the configuration to wezterm
+return config
+
