@@ -6,6 +6,8 @@ sudo apt-get install -y zsh
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+ZSH_CUSTOM=${HOME}/.oh-my-zsh/custom
+
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
@@ -23,4 +25,7 @@ wget http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet
 #
 # export TERM="xterm-256color"
 # ZSH_THEME="bullet-train"
+
+echo "[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh" >> ~/.zshrc
+echo "autoload -U compinit && compinit -u" >> ~/.zshrc
 
