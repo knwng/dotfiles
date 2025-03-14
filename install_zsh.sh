@@ -8,10 +8,17 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 ZSH_CUSTOM=${HOME}/.oh-my-zsh/custom
 
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+if [[ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ]]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+fi
 
-git clone https://github.com/wting/autojump.git
+if [[ ! -d $ZSH_CUSTOM/plugins/zsh-syntax-highlighting ]]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+fi
+
+if [[ ! -d autojump/ ]]; then
+    git clone https://github.com/wting/autojump.git
+fi
 cd autojump && ./install.py && cd ..
 
 # Add plugins to zshrc:
