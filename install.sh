@@ -8,6 +8,7 @@ if [[ ! -e ~/.zshrc ]]; then
     ./install_zsh.sh
 fi
 
+cp ~/.zshrc ~/.zshrc.bak
 cat zshrc >> ~/.zshrc
 
 if [[ ! -e ~/.local/bin/broot ]]; then
@@ -20,3 +21,7 @@ if [[ ! -e ~/.local/bin/broot ]]; then
     echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.zshrc
     cd $ROOT
 fi
+
+# Register functions
+cat shell_functions.sh >> ~/.zshrc
+
