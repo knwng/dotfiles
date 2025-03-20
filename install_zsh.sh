@@ -22,17 +22,15 @@ fi
 export SHELL=/usr/bin/zsh
 cd autojump && ./install.py && cd ..
 
-# Add plugins to zshrc:
-# plugins=(git zsh-autosuggestions zsh-syntax-highlighting autojump)
-
 sudo apt-get install -y fonts-powerline
 sudo apt-get install -y ttf-ancient-fonts
 wget http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -O $ZSH_CUSTOM/themes/bullet-train.zsh-theme
 
-# Add these to zshrc:
-#
-# export TERM="xterm-256color"
-# ZSH_THEME="bullet-train"
+# Modify .zshrc
+cp ~/.zshrc ~/.zshrc.bak
+
+sed -i '/^ZSH_THEME=/c\export TERM="xterm-256color"\nZSH_THEME="bullet-train"' ~/.zshrc
+sed -i '/^plugins=(git)/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting autojump)' ~/.zshrc
 
 echo "[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh" >> ~/.zshrc
 echo "autoload -U compinit && compinit -u" >> ~/.zshrc
