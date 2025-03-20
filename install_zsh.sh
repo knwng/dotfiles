@@ -19,6 +19,7 @@ fi
 if [[ ! -d autojump/ ]]; then
     git clone https://github.com/wting/autojump.git
 fi
+export SHELL=/usr/bin/zsh
 cd autojump && ./install.py && cd ..
 
 # Add plugins to zshrc:
@@ -35,4 +36,9 @@ wget http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet
 
 echo "[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh" >> ~/.zshrc
 echo "autoload -U compinit && compinit -u" >> ~/.zshrc
+
+# Modifi bashrc to auto-switch
+echo "if [ -t 1 ];then" >> ~/.bashrc
+echo "    exec zsh" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
 
