@@ -18,3 +18,10 @@ function pid_in_docker() {
 }
 export pid_in_docker
 
+function create_monitor_panel() {
+    tmux split-window -h 'watch -n .1 amd-smi monitor -putmvq'
+    # tmux split-window -v 'watch -n .1 amd-smi process --csv'
+    tmux split-window -v 'watch -n .1 rocm-smi'
+}
+export create_monitor_panel
+
