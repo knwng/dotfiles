@@ -23,4 +23,4 @@ set statusline=%F%m%r%h%w\[POS=%l,%v][%p%%]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 set backspace=2
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
-
+set ft=nasm
