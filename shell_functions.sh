@@ -25,3 +25,5 @@ function create_monitor_panel() {
 }
 export create_monitor_panel
 
+export PATH="/root/code/triton/build/cmake.linux-x86_64-cpython-3.10/bin:${PATH}"
+
