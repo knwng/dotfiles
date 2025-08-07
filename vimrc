@@ -24,3 +24,4 @@ set backspace=2
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 set ft=nasm
+set ic
