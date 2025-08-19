@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 sudo apt-get update -y
-sudo apt-get install -y zsh
+sudo apt-get install -y zsh wget tmux vim
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
