@@ -13,5 +13,6 @@ function findir() {
 export findir
 
 alias list_docker='docker ps -a | grep kylewng'
+alias trigger_ci='git commit -m "trigger CI" --allow-empty'
 export PATH="${HOME}/.local/bin:${PATH}"
 
