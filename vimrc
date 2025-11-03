@@ -25,3 +25,13 @@ filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 set ft=nasm
 set ic
+
+"Map Ctrl-w to <space>w to avoid conflict with Wezterm
+let mapleader = " "
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>wc <C-w>c
+nnoremap <leader>wo <C-w>o
+nnoremap <leader>wp <C-w>p
