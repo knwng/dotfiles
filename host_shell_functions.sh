@@ -36,7 +36,7 @@ start_agent() {
 }
 
 if [[ -f "$SSH_ENV" ]]; then
-    rm "$HOME/.ssh/ssh-agent.sock"
+    rm -rf "$HOME/.ssh/ssh-agent.sock"
     source "$SSH_ENV" > /dev/null
     [[ "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh-agent.sock" || ! -S "$HOME/.ssh/ssh-agent.sock" ]] && start_agent
     # Agent dead?  Restart.
