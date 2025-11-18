@@ -6,7 +6,7 @@ export enterc
 function findir() {
     SUFFIX=$1
     if [ -z "${SUFFIX}" ]; then
-        SUFFIX="ttir"
+        SUFFIX="ttgir"
     fi
     find ~/.triton/cache/ -type f -name "*.${SUFFIX}"
 }
