@@ -48,3 +48,24 @@ fi
 # Always export the directory helper so VS Code can see it
 export SSH_AUTH_SOCK_DIR="$(dirname "$SSH_AUTH_SOCK")"
 
+unzipd() {
+    local zipfile="$1"
+
+    if [[ -z "$zipfile" ]]; then
+        echo "Usage: unzipd <file.zip>"
+        return 1
+    fi
+
+    if [[ ! -f "$zipfile" ]]; then
+        echo "ERROR: $zipfile doesn't exist"
+        return 1
+    fi
+
+    local filename="${zipfile##*/}"
+    local dirname="${filename%.zip}"
+
+    mkdir -p "$dirname"
+    unzip -d "$dirname" "$zipfile"
+}
+export unzipd
+
