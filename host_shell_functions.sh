@@ -69,3 +69,12 @@ unzipd() {
 }
 export unzipd
 
+pgit() {
+    local key_file="$HOME/.ssh/id_ed25519_amdeng"
+    if [[ ! -f "$key_file" ]]; then
+        echo "ERROR: SSH key file '$key_file' does not exist"
+        return 1
+    fi
+    GIT_SSH_COMMAND="ssh -i $key_file -o IdentitiesOnly=yes" git "$@"
+}
+export pgit
