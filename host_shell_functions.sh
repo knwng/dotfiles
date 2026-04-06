@@ -78,3 +78,9 @@ pgit() {
     GIT_SSH_COMMAND="ssh -i $key_file -o IdentitiesOnly=yes" git "$@"
 }
 export pgit
+
+create_ed_key() {
+    ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -q && cat ~/.ssh/id_ed25519.pub
+}
+export create_ed_key
+
