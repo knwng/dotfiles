@@ -72,3 +72,9 @@ if $USE_ZSH; then
 else
     cat shell_functions.sh >> ~/.bashrc
 fi
+
+# Switch to zsh so all changes take effect
+if $USE_ZSH; then
+    echo 'Switching to zsh...'
+    exec zsh -l
+fi
