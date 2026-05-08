@@ -84,3 +84,24 @@ create_ed_key() {
 }
 export create_ed_key
 
+create_auth_key_dir() {
+    mkdir -p ~/.ssh && chmod 700 ~/.ssh && touch ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys
+}
+export create_auth_key_dir
+
+create_user_with_sudo() {
+    username=$1
+    if id "$username" &>/dev/null; then
+        echo "User '$username' already exists. Skipping creation."
+        return 0
+    fi
+        sudo useradd -m -s /bin/bash "$username" && sudo usermod -aG docker "$username" && echo "$username ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/90-"$username" >/dev/null && sudo chmod 440 /etc/sudoers.d/90-"$username"
+}
+export create_user_with_sudo
+
+init_git() {
+    git config --global user.name "Kyle Wang"
+    git config --global user.email "ec1wng@gmail.com"
+    git config --global core.editor "vim"
+}
+export init_git
