@@ -22,6 +22,14 @@ alias list_docker='docker ps -a | grep kylewng'
 alias trigger_ci='git commit -m "trigger CI" --allow-empty'
 export PATH="${HOME}/.local/bin:${PATH}"
 
+function resume_docker() {
+    list_docker | awk '{print $NF}' | while read -r name; do
+        echo "Starting $name ..."
+        docker start "$name"
+    done
+}
+export resume_docker
+
 export SSH_ENV="$HOME/.ssh/agent-environment"
 start_agent() {
 
@@ -105,3 +113,27 @@ init_git() {
     git config --global core.editor "vim"
 }
 export init_git
+
+function rsync_am_report() {
+    # 至少需要两个参数：一个或多个 SRC + 一个 DST
+    if [[ $# -lt 2 ]]; then
+        echo "Usage: rsync_am_report SRC [SRC...] DST" >&2
+        return 1
+    fi
+
+    local DST="${!#}"                  # 最后一个参数
+    local SRCS=( "${@:1:$#-1}" )       # 除最后一个之外的所有参数
+
+    local SRC
+    for SRC in "${SRCS[@]}"; do
+        echo ">>> rsync ${SRC} -> ${DST}"
+        rsync -avzP --info=progress2 \
+            -e "ssh -T -c aes128-gcm@openssh.com -o Compression=no" \
+            --exclude "xcc0se0sa1_itrace_emu.mon" \
+            --exclude "xcc0se1sa0_itrace_emu.mon" \
+            --exclude "xcc0se1sa1_itrace_emu.mon" \
+            "${SRC}" "${DST}"
+    done
+}
+export -f rsync_am_report
+
