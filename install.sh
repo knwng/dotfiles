@@ -3,8 +3,11 @@
 USE_ZSH=$1
 
 if [[ "$USE_ZSH" == "" ]]; then
-    USE_SZH=true
+    USE_ZSH=true
 fi
+
+apt-get update -y
+apt-get install -y sudo
 
 fix_sudo_for_root() {
   local out rc
@@ -72,6 +75,8 @@ if $USE_ZSH; then
 else
     cat shell_functions.sh >> ~/.bashrc
 fi
+
+git config --global --add safe.directory '*'
 
 # Switch to zsh so all changes take effect
 if $USE_ZSH; then
