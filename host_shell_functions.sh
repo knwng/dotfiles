@@ -137,3 +137,47 @@ function rsync_am_report() {
 }
 export -f rsync_am_report
 
+monitor() {
+    local session="monitor"
+    local p1 p2 p3 p4
+
+    if ! command -v tmux >/dev/null 2>&1; then
+        echo "错误：未安装 tmux" >&2
+        return 1
+    fi
+
+    # 已存在时直接进入，避免重复创建。
+    if tmux has-session -t "=${session}" 2>/dev/null; then
+        if [[ -n "${TMUX:-}" ]]; then
+            tmux switch-client -t "=${session}"
+        else
+            tmux attach-session -t "=${session}"
+        fi
+        return
+    fi
+
+    # 创建四个 pane。使用 pane ID，不受 tmux 的 pane 编号配置影响。
+    p1=$(tmux new-session -d -P -F '#{pane_id}' \
+        -s "$session" -n monitor)
+    p2=$(tmux split-window -P -F '#{pane_id}' -t "$p1")
+    p3=$(tmux split-window -P -F '#{pane_id}' -t "$p2")
+    p4=$(tmux split-window -P -F '#{pane_id}' -t "$p3")
+
+    # 排列成田字格。
+    tmux select-layout -t "$session:monitor" tiled >/dev/null
+
+    # 从左到右、从上到下执行命令。
+    tmux send-keys -t "$p1" 'sudo dmesg -wT' C-m
+    tmux send-keys -t "$p2" 'htop' C-m
+    tmux send-keys -t "$p3" 'watch w' C-m
+
+    # 第四个 pane 保持普通 shell，并将焦点放到这里。
+    tmux select-pane -t "$p4"
+
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux switch-client -t "=$session"
+    else
+        tmux attach-session -t "=$session"
+    fi
+}
+export -f monitor
