@@ -4,7 +4,7 @@ set -euxo pipefail
 
 sudo apt-get update -y
 DEBIAN_FRONTEND=noninteractive sudo apt-get -y install tzdata
-sudo apt-get install -y zsh wget tmux vim sudo curl git
+sudo apt-get install -y zsh wget tmux vim sudo curl git ripgrep
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 sudo chsh -s "$(command -v zsh)" "$(whoami)"
