@@ -30,6 +30,21 @@ function resume_docker() {
 }
 export resume_docker
 
+remove_docker() {
+    local ids
+    ids=$(list_docker | awk '{print $1}')
+    if [ -z "$ids" ]; then
+        echo "No containers to remove."
+        return 0
+    fi
+    echo "Will remove:"
+    list_docker
+    read -r -p "Confirm docker rm -f? [y/N] " ans
+    [[ "$ans" =~ ^[Yy]$ ]] || { echo "Aborted."; return 1; }
+    echo "$ids" | xargs docker rm -f
+}
+export remove_docker
+
 export SSH_ENV="$HOME/.ssh/agent-environment"
 start_agent() {
 
